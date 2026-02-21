@@ -1,0 +1,98 @@
+/* Reseta margens padrão do navegador e define a fonte */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Centraliza o formulário no meio da tela usando Flexbox */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f3f4f6; /* Fundo cinza bem claro */
+    padding: 20px;
+}
+
+/* O "cartão" branco em volta do formulário */
+.form-wrapper {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+    text-align: center;
+    color: #1f2937;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+/* Espaçamento entre os campos */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo das labels (Nome, Preço, Imagem) */
+.form-group label {
+    margin-bottom: 8px;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Estilo dos inputs de texto e número */
+.form-group input[type="text"],
+.form-group input[type="number"] {
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Efeito quando clica dentro do input (Focus) */
+.form-group input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Estilo específico para o input de arquivo (imagem) */
+.file-input {
+    padding: 10px 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Estilo do botão de enviar */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #3b82f6; /* Azul moderno */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+}
+
+/* Efeito de hover no botão */
+.submit-btn:hover {
+    background-color: #2563eb;
+}
+
+/* Efeito de clique no botão */
+.submit-btn:active {
+    transform: scale(0.98);
+}
