@@ -3,15 +3,12 @@ const express = require("express");
 // importar express-handlebars
 const { engine } = require("express-handlebars");
 // importar mysql2
-const mysql = require("mysql2");  
-// importar multer
-const multer = require("multer");
+const mysql = require("mysql2");
+// NOVO: importar express-fileupload
+const fileupload = require("express-fileupload");
 
 // app
 const app = express();
-
-//Configurar o multer para salvar as imagens em uma pasta chamada "uploads"
-const upload = multer({ dest: "uploads/" });
 
 // Adicionar css
 app.use('/css', express.static("./css"));
@@ -23,8 +20,10 @@ app.set("views", "./views");
 
 // Manipulação de dados via rotas
 app.use(express.json());
-// SEMPRE QUANDO TEM UM FORMULARIO
 app.use(express.urlencoded({ extended: false }));
+
+// NOVO: Ativar o express-fileupload
+app.use(fileupload());
 
 // configurar conexão
 const conexao = mysql.createConnection({
@@ -32,26 +31,41 @@ const conexao = mysql.createConnection({
     user: "root",
     password: "",
     database: "projeto"
-})
+});
+
 // testar conexão
-conexao.connect(function(erro){
-    if(erro) throw erro;
+conexao.connect(function (erro) {
+    if (erro) throw erro;
     console.log("Conectado ao banco de dados");
-})
+});
 
 // Rota Principal
 app.get("/", (req, res) => {
     res.render("formulario");
 });
 
-// Rota de cadastro
-// NOVO: Adicionar o 'upload.single("imagem")' na rota
-// O "imagem" tem que ser exatamente o mesmo nome que está no atributo 'name' do input do HTML
-app.post("/cadastrar", upload.single("imagem"), (req, res) => {
-    console.log("DADOS DOS TEXTOS:", req.body); // Agora o nome e o preço vão aparecer aqui!
-    console.log("DADOS DO ARQUIVO:", req.file); // E os dados da imagem salva vão aparecer aqui!
+// Rota de cadastro enxuta!
+app.post("/cadastrar", (req, res) => {
+    // 1. Pega os dados
+    let nome = req.body.nome;
+    let valor = req.body.valor; 
+    let imagem = req.files.imagem.name; 
+
+    // 2. Monta o SQL (com os ? para não dar erro de aspas)
+    let sql = "INSERT INTO produtos (nome, valor, imagem) VALUES (?, ?, ?)";
     
-    res.send("Recebido com sucesso!");
+    // 3. Executa no banco e salva a foto
+    conexao.query(sql, [nome, valor, imagem], (erro, resultado) => {
+        if (erro) throw erro;
+        
+        // Move a foto para a pasta images
+        req.files.imagem.mv(__dirname + '/images/' + imagem); 
+        
+        console.log(resultado);
+        res.send("Produto salvo com sucesso no banco e na pasta!");
+    });
+    // Retornar para a página inicial
+    res.redirect("/");
 });
 
 // Iniciar servidor
