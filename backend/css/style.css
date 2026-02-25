@@ -198,3 +198,15 @@ body {
     color: #6b7280;
     padding: 40px 0;
 }
+
+.btn-cancelar {
+    padding: 13px 24px;
+    background-color: #2563eb; /* Azul botão */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    flex: 1 1 100%; /* No celular, botão ocupa a linha toda */
+}

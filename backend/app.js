@@ -4,8 +4,11 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 // importar mysql2
 const mysql = require("mysql2");
-// NOVO: importar express-fileupload
+// importar express-fileupload
 const fileupload = require("express-fileupload");
+
+// importar fs (file system)
+const fs = require("fs");
 
 // app
 const app = express();
@@ -77,6 +80,25 @@ app.post("/cadastrar", (req, res) => {
         // Assim, quando o cara cadastrar, a tela pisca e volta pro formulário limpo.
         res.redirect("/"); 
     });
+});
+
+// rota de delete
+app.get("/deletar/:codigo&:imagem", (req, res) => {
+   let sql = `DELETE FROM produtos WHERE codigo = ${req.params.codigo}`;
+
+   conexao.query(sql, (erro, resultado) => {
+       if (erro) throw erro;
+       fs.unlink(__dirname + '/images/' + req.params.imagem, (erro_imagem) => {
+            if (erro_imagem) console.log("Imagem deu ERRO!");
+       });
+       
+       res.redirect("/"); 
+   });
+});
+
+// Rota para redirecionar para o formulário de edição
+app.get("/formularioEditar/:codigo", (req, res) => {
+    res.render("formularioEditar");
 });
 
 // Iniciar servidor
