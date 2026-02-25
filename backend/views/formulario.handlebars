@@ -1,25 +1,67 @@
+<header class="admin-header">
+    <div class="header-content">
+        <h1>👕 Painel de Controle</h1>
+        <p>Gerenciamento da Loja</p>
+    </div>
+</header>
 
-<main class="main-container">
-    <section class="form-wrapper">
-        <h1 class="form-title">Novo Produto</h1>
+<main class="admin-main">
+    
+    <section class="admin-section form-section">
+        <h2 class="section-title">Adicionar Novo Produto</h2>
         
-        <form action="/cadastrar" method="POST" enctype="multipart/form-data" class="custom-form">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" placeholder="Ex: Teclado Mecânico" required>
+        <form action="/cadastrar" method="POST" enctype="multipart/form-data" class="product-form">
+            <div class="input-group">
+                <label for="nome">Nome da Peça</label>
+                <input type="text" id="nome" name="nome" placeholder="Ex: Camiseta Básica" required>
             </div>
             
-            <div class="form-group">
+            <div class="input-group">
                 <label for="valor">Preço (R$)</label>
                 <input type="number" id="valor" name="valor" placeholder="0.00" step="0.01" required>
             </div>
             
-            <div class="form-group">
-                <label for="imagem">Imagem</label>
-                <input type="file" id="imagem" name="imagem" class="file-input" accept="image/*" required>
+            <div class="input-group">
+                <label for="imagem">Foto da Peça</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*" required>
             </div>
             
-            <button type="submit" class="submit-btn">Cadastrar Produto</button>
+            <button type="submit" class="btn-submit">Cadastrar</button>
         </form>
+    </section>
+
+    <hr class="divider">
+
+    <section class="admin-section list-section">
+        <h2 class="section-title">Peças Cadastradas</h2>
+        
+        {{#if produtos.length}}
+        <div class="grid-produtos">
+            
+            {{#each produtos}}
+            <article class="card-produto">
+                <div class="card-img-container">
+                    <img src="/images/{{this.imagem}}" alt="{{this.nome}}">
+                </div>
+                
+                <div class="card-detalhes">
+                    <h3>{{this.nome}}</h3>
+                    <p class="preco">R$ {{this.valor}}</p>
+                    
+                    <div class="card-acoes">
+                        <a href="#" class="btn-editar">Editar</a>
+                        <a href="#" class="btn-deletar">Deletar</a>
+                    </div>
+                </div>
+            </article>
+            {{/each}}
+
+        </div>
+        {{else}}
+        <div class="empty-state">
+            <p>Nenhuma peça cadastrada ainda. Use o formulário acima para começar!</p>
+        </div>
+        {{/if}}
+        
     </section>
 </main>

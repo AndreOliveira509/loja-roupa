@@ -13,6 +13,9 @@ const app = express();
 // Adicionar css
 app.use('/css', express.static("./css"));
 
+// Adicionar imagens
+app.use('/images', express.static("./images"));
+
 // configurar express-handlebars
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
@@ -41,7 +44,13 @@ conexao.connect(function (erro) {
 
 // Rota Principal
 app.get("/", (req, res) => {
-    res.render("formulario");
+    // SQL
+    let sql = "SELECT * FROM produtos";
+    // Executa no banco
+    conexao.query(sql, (erro, resultado) => {
+        if (erro) throw erro;
+        res.render("formulario", { produtos: resultado });
+    });
 });
 
 // Rota de cadastro enxuta!
@@ -51,7 +60,7 @@ app.post("/cadastrar", (req, res) => {
     let valor = req.body.valor; 
     let imagem = req.files.imagem.name; 
 
-    // 2. Monta o SQL (com os ? para não dar erro de aspas)
+    // 2. Monta o SQL
     let sql = "INSERT INTO produtos (nome, valor, imagem) VALUES (?, ?, ?)";
     
     // 3. Executa no banco e salva a foto
@@ -61,11 +70,13 @@ app.post("/cadastrar", (req, res) => {
         // Move a foto para a pasta images
         req.files.imagem.mv(__dirname + '/images/' + imagem); 
         
-        console.log(resultado);
-        res.send("Produto salvo com sucesso no banco e na pasta!");
+        console.log("Salvo com sucesso! ID do produto:", resultado.insertId);
+        
+        // 4. A RESPOSTA FINAL (Fica aqui dentro!)
+        // Como você tinha colocado um redirect, vou manter ele como padrão.
+        // Assim, quando o cara cadastrar, a tela pisca e volta pro formulário limpo.
+        res.redirect("/"); 
     });
-    // Retornar para a página inicial
-    res.redirect("/");
 });
 
 // Iniciar servidor
