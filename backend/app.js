@@ -20,7 +20,14 @@ app.use('/css', express.static("./css"));
 app.use('/images', express.static("./images"));
 
 // configurar express-handlebars
-app.engine("handlebars", engine());
+app.engine("handlebars", engine({
+    helpers: {
+      // Função auxiliar para verificar igualdade
+      condicionalIgualdade: function (parametro1, parametro2, options) {
+        return parametro1 === parametro2 ? options.fn(this) : options.inverse(this);
+      }
+    }
+}));
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 

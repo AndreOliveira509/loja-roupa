@@ -217,3 +217,26 @@ form img {
     border-radius: 8px;
     border: 1px solid #ddd;
 }
+
+/* ====================================
+   MENSAGENS DE ALERTA (VERDE/VERMELHO)
+   ==================================== */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-left: 5px solid;
+}
+
+.alert-success {
+    background-color: #d1fae5; /* Verde bem claro */
+    color: #065f46; /* Verde escuro */
+    border-left-color: #10b981; /* Verde */
+}
+
+.alert-danger {
+    background-color: #fee2e2; /* Vermelho bem claro */
+    color: #991b1b; /* Vermelho escuro */
+    border-left-color: #ef4444; /* Vermelho */
+}

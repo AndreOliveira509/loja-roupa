@@ -10,6 +10,8 @@
     <section class="admin-section form-section">
         <h2 class="section-title">Adicionar Novo Produto</h2>
         
+        {{>mensagens}}
+
         <form action="/cadastrar" method="POST" enctype="multipart/form-data" class="product-form">
             <div class="input-group">
                 <label for="nome">Nome da Peça</label>
