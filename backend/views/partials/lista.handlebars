@@ -1,0 +1,36 @@
+
+
+<main class="admin-main">
+    <section class="admin-section list-section">
+        <h2 class="section-title">Peças Cadastradas</h2>
+        
+        {{#if produtos.length}}
+        <div class="grid-produtos">
+            
+            {{#each produtos}}
+            <article class="card-produto">
+                <div class="card-img-container">
+                    <img src="/images/{{this.imagem}}" alt="{{this.nome}}">
+                </div>
+                
+                <div class="card-detalhes">
+                    <h3>{{this.nome}}</h3>
+                    <p class="preco">R$ {{this.valor}}</p>
+                    
+                    <div class="card-acoes">
+                       <a href="/formularioEditar/{{codigo}}" class="btn-editar">Editar</a>
+                       <a href="/deletar/{{codigo}}&{{imagem}}" class="btn-deletar">Deletar</a>
+                    </div>
+                </div>
+            </article>
+            {{/each}}
+
+        </div>
+        {{else}}
+        <div class="empty-state">
+            <p>Nenhuma peça cadastrada ainda. Use o formulário acima para começar!</p>
+        </div>
+        {{/if}}
+        
+    </section>
+</main>

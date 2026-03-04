@@ -80,17 +80,18 @@ app.post("/cadastrar", (req, res) => {
      // 1. Pega os dados
     let nome = req.body.nome;
     let valor = req.body.valor;
+    let categoria = req.body.categoria;
     let imagem = req.files.imagem.name;
 
     // validar o nome do produto e o valor
-    if(nome == '' || valor == '' || isNaN(valor)){
+    if(nome == '' || valor == '' || isNaN(valor) || categoria == ''){
         res.redirect("/falhaCadastro");
     }else{
         // 2. Monta o SQL
-        let sql = "INSERT INTO produtos (nome, valor, imagem) VALUES (?, ?, ?)";
+        let sql = `INSERT INTO produtos (nome, valor, categoria, imagem) VALUES ('${nome}', ${valor}, '${categoria}', '${imagem}')`;
 
         // 3. Executa no banco e salva a foto
-        conexao.query(sql, [nome, valor, imagem], (erro, resultado) => {
+        conexao.query(sql, (erro, resultado) => {
             if (erro) throw erro;
 
             // Move a foto para a pasta images
