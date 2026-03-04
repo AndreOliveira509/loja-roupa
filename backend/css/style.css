@@ -264,3 +264,86 @@ form img {
     transition: 0.3s;
     background-color: white;
 }
+/* backend/css/style.css */
+
+/* Customização da Navbar */
+/* Fundo limpo e fonte padrão do navegador */
+body {
+  background-color: #f8f9fa; /* Fundo levemente cinza fora do menu, como na imagem */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* O Menu em si */
+.custom-nav {
+  background-color: #ffffff;
+  padding: 12px 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Sombra bem leve para separar do fundo */
+}
+
+/* Título em negrito: "Node.js e MySQL" */
+.brand-title {
+  font-weight: bold;
+  font-size: 1.15rem;
+  color: #202124 !important; /* Quase preto */
+  margin-right: 25px;
+}
+
+/* Links: "Cadastrar produto", "Listar produtos" */
+.custom-link {
+  color: #5f6368 !important; /* Cinza médio */
+  font-size: 0.95rem;
+  margin-right: 15px;
+}
+
+.custom-link:hover {
+  color: #202124 !important; /* Fica mais escuro ao passar o mouse */
+}
+
+/* Campo de busca "Procurando algo?" */
+.custom-input {
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  width: 260px; /* Largura um pouco maior para ficar igual à imagem */
+}
+
+.custom-input:focus {
+  border-color: #1a73e8;
+  box-shadow: none; /* Remove aquela sombra azul exagerada do Bootstrap */
+}
+
+/* Botão "Pesquisar" */
+.custom-btn {
+  color: #3b4045; 
+  background-color: transparent;
+  border: 1px solid #9fa6ad; 
+  border-radius: 4px;
+  font-weight: 500;
+  padding: 6px 16px;
+}
+
+/* Como a imagem mostra o botão com texto azul, vamos forçar isso */
+.custom-btn {
+  color: #0d47a1; /* Azul escuro igual ao botão da foto */
+  border-color: #0d47a1;
+}
+
+.custom-btn:hover {
+  background-color: #e8f0fe; /* Fundo azul claro ao passar o mouse */
+}
+/* Remover margem do formulário */
+.formularioPesquisa{
+    margin: 0;
+}
+
+/* Estrutura do formulário de pesquisa (barra de navegação) */
+.formularioPesquisa input,
+.formularioPesquisa input[type="submit"]
+{
+    margin: 0;
+}
+
+/* Configurar o dropdown para ser exibido quando passar o cursor sobre o link */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}

@@ -54,26 +54,44 @@ conexao.connect(function (erro) {
 
 // Rota Principal
 app.get("/", (req, res) => {
-    // SQL
-    let sql = "SELECT * FROM produtos";
-    // Executa no banco
-    conexao.query(sql, (erro, resultado) => {
-        if (erro) throw erro;
-        res.render("formulario", { produtos: resultado });
-    });
+   
+    res.render("formulario");
+
 });
 
 // Rota Principal contendo a situação
 app.get("/:situacao", (req, res) => {
-    // SQL
-    let sql = "SELECT * FROM produtos";
-    // Executa no banco
-    conexao.query(sql, (erro, resultado) => {
-        if (erro) throw erro;
-        res.render("formulario", { produtos: resultado, situacao: req.params.situacao });
-    });
+        res.render("formulario", { situacao: req.params.situacao });
 });
 
+// Rota para listar produtos por categoria
+app.get("/categoria/:categoria", (req, res) => {
+    let categoria = req.params.categoria;
+    let sql = "";
+    
+    if(categoria == "todos"){
+        sql = "SELECT * FROM produtos";
+    } else {
+        sql = `SELECT * FROM produtos WHERE categoria = '${categoria}'`;
+    }
+
+    conexao.query(sql, (erro, resultado) => {
+        if (erro) throw erro;
+        res.render("lista", { produtos: resultado, situacao: `Categoria: ${categoria}` });
+    });
+});
+// Rota para pesquisa
+app.post("/pesquisa", function(req, res){
+    // Obter o termo pesquisado
+    let termo = req.body.termo;
+    // Sql
+    let sql = `SELECT * FROM produtos WHERE nome LIKE '%${termo}%'`;
+    // executar comando sql 
+    conexao.query(sql, (erro, resultado) => {
+        if (erro) throw erro;
+        res.render("lista", { produtos: resultado, situacao: `Pesquisa: ${termo}` });
+    });
+});
 // Rota de cadastro enxuta!
 app.post("/cadastrar", (req, res) => {
    try{
