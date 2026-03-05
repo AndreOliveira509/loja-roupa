@@ -1,5 +1,3 @@
-
-
 <main class="admin-main">
     <section class="admin-section list-section">
         <h2 class="section-title">Peças Cadastradas</h2>
@@ -27,9 +25,11 @@
 
         </div>
         {{else}}
+        {{#if semResgistros}}
         <div class="empty-state">
             <p>Nenhuma peça cadastrada ainda. Use o formulário acima para começar!</p>
         </div>
+        {{/if}}
         {{/if}}
         
     </section>
